@@ -1,0 +1,42 @@
+# Firebase and Cloud Functions
+firebase-functions
+firebase-admin
+
+# LangChain and AI Libraries
+langchain
+langchain-community
+langchain-openai 
+langchain-google-genai
+# Vector Store
+google-cloud-firestore
+
+# Web Search
+google-search-results
+
+# OpenAI
+openai
+
+# Utilities
+python-dotenv
+
+# Web Framework (compatible with functions-framework)
+Flask>=2.0.1
+
+# Gunicorn (compatible with functions-framework)
+gunicorn
+
+# Functions Framework for Cloud Functions
+functions-framework==3.1.0
+
+# Werkzeug
+Werkzeug>=2.2.2
+
+# Google APIs
+google-cloud-aiplatform
+chromadb
+faiss-cpu
+bs4
+html2text
+scikit-learn 
+fitz
+langchain_experimental

@@ -1,0 +1,6 @@
+.venv
+.env
+.env.yaml
+.env.*
+.gcloudignore
+rrkt-firebase-adminsdk.json
