@@ -38,5 +38,5 @@ faiss-cpu
 bs4
 html2text
 scikit-learn 
-fitz
+PyMuPDF
 langchain_experimental
