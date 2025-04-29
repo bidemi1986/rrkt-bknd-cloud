@@ -1,3 +1,4 @@
+# main.py
 import os
 import logging
 from flask import Flask, jsonify, request
@@ -44,6 +45,9 @@ def load_and_prepare_pdfs(user_id, max_chunk_size=1000):
     folder_path = f'room_files/{user_id}/'
     bucket = storage_client.bucket(FIREBASE_STORAGE_BUCKET)
     blobs = bucket.list_blobs(prefix=folder_path)
+
+    if not blobs:
+            raise FileNotFoundError(f"No files found in {folder_path}")
 
     for blob in blobs:
         if blob.name.endswith('.pdf'):

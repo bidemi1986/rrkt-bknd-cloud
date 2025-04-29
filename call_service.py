@@ -39,6 +39,32 @@ def call_query(query, user_id=None, additional_params=None):
 
 
 
+
+def call_vectorize(userId, additional_params=None):
+    if userId is None:
+        raise ValueError("userId must be provided")
+    
+    url = f"https://flask-app-685994944265.us-central1.run.app/vectorize/{userId}"
+    
+    headers = {
+        "Content-Type": "application/json"
+    }
+
+    payload = {
+        "params": additional_params or {}
+    }
+
+    try:
+        response = requests.post(url, headers=headers, data=json.dumps(payload))
+        response.raise_for_status()
+        return response.json()
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+        return {"error": str(e)}
+
+    
+
+
 def call_greet(name="Guest"):
     """
     Call the greet service with an optional name parameter.
@@ -67,38 +93,6 @@ def call_greet(name="Guest"):
         return {"error": str(e)}
     
 
-def call_vectorize(userId=None, additional_params=None):
-    """
-    Call the vectorization service with the given user ID and optional parameters.
-
-    Args:
-        user_id (str, optional): The user ID to include in the payload.
-        additional_params (dict, optional): Additional parameters to include in the payload.
-
-    Returns:
-        dict: The JSON response from the service, or an error message.
-    """
-    # Define the URL of the service
-    url = f"https://flask-app-685994944265.us-central1.run.app/vectorize"
-
-    # Define the headers
-    headers = {
-        "Content-Type": "application/json"
-    }
-
-    # Define the payload
-    payload = {
-        "params": additional_params or {}
-    }
-
-    # Make the POST request
-    try:
-        response = requests.post(url, headers=headers, data=json.dumps(payload))
-        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
-        return response.json()
-    except requests.exceptions.RequestException as e:
-        print(f"An error occurred: {e}")
-        return {"error": str(e)}
     
 
 # Example usage
@@ -113,8 +107,8 @@ def call_vectorize(userId=None, additional_params=None):
 
 
 # /vectorize/
-response = call_vectorize( 
+response = call_vectorize(
     userId="Cu3DdQMksLP7UEnZXmasiNlcEko1",
-    additional_params={"userId": "Cu3DdQMksLP7UEnZXmasiNlcEko1"}
+    additional_params={"some_param": "some_value"}
 )
 print("Response:", response)
