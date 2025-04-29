@@ -1,5 +1,4 @@
-# Firebase and Cloud Functions
-firebase-functions
+# Firebase and Cloud Functions 
 firebase-admin
 
 # LangChain and AI Libraries
@@ -38,5 +37,5 @@ faiss-cpu
 bs4
 html2text
 scikit-learn 
-PyMuPDF
+PyMuPDF==1.23.3
 langchain_experimental
