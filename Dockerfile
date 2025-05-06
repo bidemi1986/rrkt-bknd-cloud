@@ -29,6 +29,7 @@ RUN pip uninstall -y fitz || true
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN pip install --upgrade pymupdf
 # Copy the rest of the application code into the container
 COPY . .
 
