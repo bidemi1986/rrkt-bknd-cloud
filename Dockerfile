@@ -6,6 +6,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     gcc \
     g++ \
     build-essential \
+    cmake \
+    python3-dev \
+    libgl1-mesa-dev \
+    libxrender1 \
+    libxext6 \
+    zlib1g-dev \
+    libjpeg-dev \
+    libopenjp2-7-dev \
+    tesseract-ocr \
     && rm -rf /var/lib/apt/lists/*
 
 # Set the working directory in the container
@@ -13,6 +22,9 @@ WORKDIR /app
 
 # Copy the requirements file into the container
 COPY requirements.txt .
+
+# Ensure no wrong 'fitz' package is present
+RUN pip uninstall -y fitz || true
 
 # Install the dependencies
 RUN pip install --no-cache-dir -r requirements.txt
