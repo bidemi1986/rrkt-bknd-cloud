@@ -8,7 +8,8 @@ from langchain_experimental.text_splitter import SemanticChunker
 from langchain_google_genai import GoogleGenerativeAIEmbeddings
 from google.cloud.firestore_v1.vector import Vector
 from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
-import fitz  # PyMuPDF
+# import fitz  # PyMuPDF
+import pymupdf  # PyMuPDF
 import hashlib
 from dotenv import load_dotenv
 
@@ -57,7 +58,7 @@ def load_and_prepare_pdfs(user_id, max_chunk_size=1000):
                 blob.download_to_filename(pdf_path)
                 original_path = blob.name
                 original_name = os.path.basename(original_path)
-                pdf_document = fitz.open(pdf_path)
+                pdf_document = pymupdf.open(pdf_path)
                 num_pages = pdf_document.page_count
                 chunk_size = min(num_pages, max_chunk_size)
                 logger.info(f"Processing {blob.name} with {num_pages} pages, using chunk size {chunk_size}")
@@ -87,7 +88,7 @@ def vectorize_and_store_documents(pdf_path, pdf_hash, original_path, original_na
     collection = firestore_client.collection('files-knowledge-base')
     metadata = {'pdf_name': original_name, 'pdf_hash': pdf_hash, 'file_path': original_path}
     text_splitter = SemanticChunker(embedding_model)
-    doc = fitz.open(pdf_path)
+    doc = pymupdf.open(pdf_path)
 
     for page_num in range(0, doc.page_count, chunk_size):
         page = doc[page_num]

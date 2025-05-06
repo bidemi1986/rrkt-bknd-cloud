@@ -7,7 +7,8 @@ from google.cloud.firestore_v1.vector import Vector
 from google.cloud.firestore_v1.base_vector_query import DistanceMeasure
 from dotenv import load_dotenv
 import os
-import fitz  # PyMuPDF
+# import fitz  # PyMuPDF
+import pymupdf  # PyMuPDF
 from firebase_admin import credentials, initialize_app, storage, firestore
 import logging
 import os
@@ -68,7 +69,7 @@ def load_and_prepare_pdfs(folder_path, max_chunk_size=1000):
             original_path = blob.name
             original_name = os.path.basename(original_path)
             # Open the PDF file with fitz to check the number of pages
-            pdf_document = fitz.open(pdf_path)
+            pdf_document = pymupdf.open(pdf_path)
             num_pages = pdf_document.page_count
             
             # Dynamically determine the chunk size based on the number of pages
@@ -91,7 +92,7 @@ def extract_screenshot_and_text(pdf_path, page_num):
     page = loader.load()[page_num]  # Extract the text of the current page
 
     # Open the PDF with fitz for image extraction
-    doc = fitz.open(pdf_path)
+    doc = pymupdf.open(pdf_path)
     pdf_page = doc.load_page(page_num)  # Load the actual page using fitz
 
     # Extract screenshot as in-memory image
